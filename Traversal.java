@@ -60,6 +60,57 @@ public class BinaryTree {
         postOrderTraversal(root.right);
         System.out.print(root);
     }
+    private static int count = 0;
+
+    //遍历思想求结点个数
+    public static void getSize(Node root){
+        if(root == null){
+            return;
+        }
+        count++;
+        getSize(root.left);
+        getSize(root.right);
+    }
+
+    //汇总思想求结点个数（跟后序遍历二叉树的过程相似）
+    public static int getSize2(Node root){
+        if(root == null){
+            return 0;
+        }
+        int left = getSize2(root.left);
+        int right = getSize2(root.right);
+        return left + right + 1;
+    }
+
+    //用汇总的思想写前序、中序、后序遍历
+    //（力扣：二叉树的前中后序遍历面试题）
+
+    //求叶子结点的个数
+    private static int leafSize = 0;
+    public static void getLeafSize(Node root){
+        if(root == null){
+            return;
+        }
+        if(root.left == null && root.right == null){
+            leafSize++;
+        }
+        getLeafSize(root.left);
+        getLeafSize(root.right);
+    }
+    //用汇总的思想求叶子结点的个数
+    public static int getLeafSize2(Node root){
+        if(root == null){
+            return 0;
+        }
+        if(root.left == null && root.right == null){
+            return 1;
+        }
+
+        int left = getLeafSize2(root.left);
+        int right = getLeafSize2(root.right);
+        return left + right;
+    }
+    
     public static void main(String[] args) {
         Node root = buildTree();
         System.out.println("Success");
